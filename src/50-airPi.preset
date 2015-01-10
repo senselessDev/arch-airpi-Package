@@ -1,0 +1,5 @@
+enable nginx.service
+enable php-fpm.service
+enable avahi-daemon.service
+enable dhcpcd.service
+enable sshd.service
