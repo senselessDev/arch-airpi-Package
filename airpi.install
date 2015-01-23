@@ -1,0 +1,62 @@
+post_install() {
+	sed -i.bak "/noipv4ll/c\#noipv4ll #commented out during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version." /etc/dhcpcd.conf
+	sed -i.bak "s/.*hosts:.*/hosts: files mdns_minimal [NOTFOUND=return] dns myhostname  #changed during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version./" /etc/nsswitch.conf
+	sed -i.bak "s/.*/airPi/" /etc/hostname
+	hostname airPi
+	sed -i.bak "/^open_basedir / s/$/:\/usr\/share\/nginx\/html\//" /etc/php/php.ini 
+	mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+	mv /etc/nginx/nginx.conf.hidden /etc/nginx/nginx.conf
+	sed -i.bak "/^PATH/s/.$/:\/opt\/vc\/bin\/\"/" /etc/profile
+	sed -i.bak "$ a ##Camera Module Activation; added during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version.\nstart_file=start_x.elf\nfixup_file=fixup_x.dat" /boot/config.txt
+        systemctl preset nginx.service
+        systemctl preset php-fpm.service
+        systemctl preset avahi-daemon.service
+        systemctl preset dhcpcd.service
+        systemctl start nginx.service 
+        systemctl start php-fpm.service
+        systemctl start avahi-daemon.service
+        systemctl start dhcpcd.service
+}
+
+pre_upgrade() {
+	BACKUPS=(/etc/dhcpcd.conf /etc/nsswitch.conf /etc/hostname /etc/php/php.ini /etc/nginx/nginx.conf /etc/profile /boot/config.txt)
+	for i in "${BACKUPS[@]}"
+		do
+			[[ -f $i.bak ]] && rm $i && mv $i.bak $i
+		done
+}
+
+post_upgrade() {
+ 	sed -i.bak "/noipv4ll/c\#noipv4ll #commented out during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version." /etc/dhcpcd.conf
+        sed -i.bak "s/.*hosts:.*/hosts: files mdns_minimal [NOTFOUND=return] dns myhostname  #changed during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version./" /etc/nsswitch.conf
+        sed -i.bak "s/.*/airPi/" /etc/hostname
+	hostname airPi
+	sed -i.bak "/^open_basedir / s/$/:\/usr\/share\/nginx\/html\//" /etc/php/php.ini 
+	mv /etc/nginx/nginx.conf /etc/nginx/nginx.conf.bak
+        mv /etc/nginx/nginx.conf.hidden /etc/nginx/nginx.conf
+	sed -i.bak "/^PATH/s/.$/:\/opt\/vc\/bin\/\"/" /etc/profile
+	sed -i.bak "$ a ##Camera Module Activation; added during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version.\nstart_file=start_x.elf\nfixup_file=fixup_x.dat" /boot/config.txt
+	systemctl preset nginx.service
+        systemctl preset php-fpm.service
+        systemctl preset avahi-daemon.service
+        systemctl preset dhcpcd.service
+        systemctl start nginx.service 
+        systemctl start php-fpm.service
+        systemctl start avahi-daemon.service
+}
+
+post_remove() {
+	systemctl preset nginx.service
+        systemctl preset php-fpm.service
+        systemctl preset avahi-daemon.service
+        systemctl preset dhcpcd.service
+	systemctl stop nginx.service
+	systemctl stop php-fpm.service
+	systemctl stop avahi-daemon.service
+	
+	BACKUPS=(/etc/dhcpcd.conf /etc/nsswitch.conf /etc/hostname /etc/php/php.ini /etc/nginx/nginx.conf /etc/profile /boot/config.txt)
+        for i in "${BACKUPS[@]}"
+                do
+		        [[ -f $i.bak ]] && rm $i && mv $i.bak $i
+                done
+}

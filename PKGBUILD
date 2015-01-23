@@ -1,34 +1,20 @@
 # Maintainer: senselessDev <mikrocontroller@arcor.de>
-pkgname=airPi
+pkgname=airpi
 pkgver=0.1
-pkgrel=1
-epoch=
-pkgdesc=""
+pkgrel=2
+pkgdesc="collection of tools to run your Raspberry Pi as a Low-Cost-FullHD-FPV-Camera"
 arch=(armv6h)
-url=""
+url="http://fpv-community.de/showthread.php?46646-Low-Cost-HD-Video-%DCbertragung-Telemetrie"
 license=('unknown')
-groups=()
-depends=('nginx' 'php-fpm' 'gstreamer' 'gst-plugins-good' 'gst-plugins-bad' 'avahi' 'nss-mdns')
-makedepends=()
-checkdepends=()
-optdepends=()
-provides=()
-conflicts=()
-replaces=()
-backup=()
-options=()
-install=airPi.install
-changelog=
-source=()
-noextract=()
-md5sums=() #generate with 'makepkg -g'
+depends=('dhcpcd' 'nginx' 'php-fpm' 'gstreamer' 'gst-plugins-good' 'gst-plugins-bad' 'avahi' 'nss-mdns')
+install=airpi.install
 
 package() {
 	#avahi configuration
-	install -D -m644 "$srcdir/airPi.service" "$pkgdir/etc/avahi/services/airPi.service";
+	install -D -m644 "$srcdir/airpi.service" "$pkgdir/etc/avahi/services/airpi.service";
 
 	#systemctl configuration
-	install -D -m644 "$srcdir/50-airPi.preset" "$pkgdir/usr/lib/systemd/system-preset/50-airPi.preset";	
+	install -D -m644 "$srcdir/50-airpi.preset" "$pkgdir/usr/lib/systemd/system-preset/50-airpi.preset";	
 
 	#webinterface php files
 	mkdir -p "$pkgdir/usr/share/nginx/html/";
