@@ -14,12 +14,12 @@ You can simply create the package yourself if you have cloned this repo on to yo
 
 If you want to install the required dependencies, add the option `-s`.
 
-If you want to install the package directly, add the option `-i`, or otherwise you have to invoke `pacman` to install it, for example with `pacman -U airpi-0.1-1-armv6h.pkg.tar.xz`.
+If you want to install the package directly, add the option `-i`, or otherwise you have to invoke `pacman` to install it, for example with `pacman -U airpi-0.2-1-armv6h.pkg.tar.xz`.
 
 
 #### using a prebuild package without internet connection (not preferred)
 
-If your Raspberry Pi is not connected to the internet in special cases, you can use the raw package out of my [arch-airpi-Repo](https://github.com/senselessDev/arch-airpi-Repo). You have to get the `*.pkg.tar.xz` manually on to your Pi (e.g. USB storage)  and then install it directly, for example with `pacman -U airpi-0.1-1-armv6h.pkg.tar.xz`.
+If your Raspberry Pi is not connected to the internet in special cases, you can use the raw package out of my [arch-airpi-Repo](https://github.com/senselessDev/arch-airpi-Repo). You have to get the `*.pkg.tar.xz` manually on to your Pi (e.g. USB storage)  and then install it directly, for example with `pacman -U airpi-0.2-1-armv6h.pkg.tar.xz`.
 
 ## content
 

@@ -1,11 +1,11 @@
 # Maintainer: senselessDev <mikrocontroller@arcor.de>
 pkgname=airpi
-pkgver=0.1
-pkgrel=2
+pkgver=0.2
+pkgrel=1
 pkgdesc="collection of tools to run your Raspberry Pi as a Low-Cost-FullHD-FPV-Camera"
 arch=(armv6h)
 url="http://fpv-community.de/showthread.php?46646-Low-Cost-HD-Video-%DCbertragung-Telemetrie"
-license=('unknown')
+license=('GPLv3')
 depends=('dhcpcd' 'nginx' 'php-fpm' 'gstreamer' 'gst-plugins-good' 'gst-plugins-bad' 'avahi' 'nss-mdns')
 install=airpi.install
 

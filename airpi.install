@@ -8,6 +8,7 @@ post_install() {
 	mv /etc/nginx/nginx.conf.hidden /etc/nginx/nginx.conf
 	sed -i.bak "/^PATH/s/.$/:\/opt\/vc\/bin\/\"/" /etc/profile
 	sed -i.bak "$ a ##Camera Module Activation; added during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version.\nstart_file=start_x.elf\nfixup_file=fixup_x.dat" /boot/config.txt
+	sed -i.bak "s/.*catch_workers_output =.*/catch_workers_output = yes/" /etc/php/php-fpm.conf 
         systemctl preset nginx.service
         systemctl preset php-fpm.service
         systemctl preset avahi-daemon.service
@@ -19,7 +20,7 @@ post_install() {
 }
 
 pre_upgrade() {
-	BACKUPS=(/etc/dhcpcd.conf /etc/nsswitch.conf /etc/hostname /etc/php/php.ini /etc/nginx/nginx.conf /etc/profile /boot/config.txt)
+	BACKUPS=(/etc/dhcpcd.conf /etc/nsswitch.conf /etc/hostname /etc/php/php.ini /etc/php/php-fpm.conf /etc/nginx/nginx.conf /etc/profile /boot/config.txt)
 	for i in "${BACKUPS[@]}"
 		do
 			[[ -f $i.bak ]] && rm $i && mv $i.bak $i
@@ -36,6 +37,7 @@ post_upgrade() {
         mv /etc/nginx/nginx.conf.hidden /etc/nginx/nginx.conf
 	sed -i.bak "/^PATH/s/.$/:\/opt\/vc\/bin\/\"/" /etc/profile
 	sed -i.bak "$ a ##Camera Module Activation; added during installation of airpi package on $(date) by $(whoami). There is a .bak-File containing the original version.\nstart_file=start_x.elf\nfixup_file=fixup_x.dat" /boot/config.txt
+	sed -i.bak "s/.*catch_workers_output =.*/catch_workers_output = yes/" /etc/php/php-fpm.conf 
 	systemctl preset nginx.service
         systemctl preset php-fpm.service
         systemctl preset avahi-daemon.service
@@ -54,7 +56,7 @@ post_remove() {
 	systemctl stop php-fpm.service
 	systemctl stop avahi-daemon.service
 	
-	BACKUPS=(/etc/dhcpcd.conf /etc/nsswitch.conf /etc/hostname /etc/php/php.ini /etc/nginx/nginx.conf /etc/profile /boot/config.txt)
+	BACKUPS=(/etc/dhcpcd.conf /etc/nsswitch.conf /etc/hostname /etc/php/php.ini /etc/php/php-fpm.conf /etc/nginx/nginx.conf /etc/profile /boot/config.txt)
         for i in "${BACKUPS[@]}"
                 do
 		        [[ -f $i.bak ]] && rm $i && mv $i.bak $i

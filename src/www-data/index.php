@@ -61,7 +61,7 @@ if($show_default)
 	
 	?>
 
-	<tr>
+<!--	<tr>
 		<td>
 			<button type="submit" name="action" value="airpi_reboot">AirPi reboot</button>
 		</td>
@@ -74,7 +74,7 @@ if($show_default)
 			<button type="submit" name="action" value="setup">Setup</button>
 		</td>
 	</tr>
-	
+-->	
 	<?php
 }
 
