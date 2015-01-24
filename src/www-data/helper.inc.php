@@ -1,7 +1,7 @@
 <?php
 function runCommand($command, $answer_required = FALSE)
 {
-      	putenv('PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/opt/node/bin');
+      	putenv('PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/local/games:/opt/node/bin:/opt/vc/bin');
 	 if (strpos($command,'__AVAHI_REPLACE_HOSTNAME') !== false) {
                 $hostname = exec("avahi-browse -rpt _rtp._udp | sed -n '1!p' | cut -s -d\; -f7");
                 $command = str_replace("__AVAHI_REPLACE_HOSTNAME", $hostname, $command);

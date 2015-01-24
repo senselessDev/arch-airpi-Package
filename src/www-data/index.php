@@ -69,12 +69,13 @@ if($show_default)
 			<button type="submit" name="action" value="airpi_shutdown">AirPi shutdown</button>
 		</td>
 	</tr>
+-->
 	<tr>
 		<td colspan="2">
 			<button type="submit" name="action" value="setup">Setup</button>
 		</td>
 	</tr>
--->	
+	
 	<?php
 }
 
